@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1658185793, guid: 6a453a05bcb4e6c408cc3b5ae1010c2a, type: 3}
-  m_Name: Data
+  m_Script: {fileID: 2134205013, guid: 00c1ff535a44d1345ad4119692e1252a, type: 3}
+  m_Name: DreamRiverData
   m_EditorClassIdentifier: 
   mainMessage: 
