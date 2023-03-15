@@ -34,13 +34,18 @@ public class DreamRiverTools_GlintingEntity : MonoBehaviour
     private float _h, _s, _v; // 色调，饱和度，亮度
     private float _deltaBrightness; // 最低最高亮度差
     private Renderer _renderer;
-    
+
     private Material[] _materials;
 
     private readonly string _keyword = "_EMISSION";
     private readonly string _colorName = "_EmissionColor";
 
     private Coroutine _glinting;
+
+    /// <summary>
+    /// 闪烁时长
+    /// </summary>
+    private float? _glintingTime;
 
     private void Start()
     {
@@ -91,16 +96,16 @@ public class DreamRiverTools_GlintingEntity : MonoBehaviour
 
         // 更新颜色
         // 注意不能使用 _v ，否则在运行时修改参数会导致亮度突变
-        float tempV = 0;
-        Color.RGBToHSV(color, out _h, out _s, out tempV);
+        Color.RGBToHSV(color, out _h, out _s, out _v);
     }
 
     /// <summary>
-    /// 开始闪烁。
+    /// 开始闪烁
     /// </summary>
-    public void StartGlinting()
+    public void StartGlinting(float? time = null)
     {
         isGlinting = true;
+        _glintingTime = time;
         if (_materials != null)
         {
             if (_materials.Length > 0)
@@ -167,6 +172,16 @@ public class DreamRiverTools_GlintingEntity : MonoBehaviour
             }
 
             yield return null;
+
+            if (_glintingTime != null)
+            {
+                _glintingTime -= Time.deltaTime;
+                if (_glintingTime <= 0)
+                {
+                    StopGlinting();
+                    yield break;
+                }
+            }
         }
     }
 }
