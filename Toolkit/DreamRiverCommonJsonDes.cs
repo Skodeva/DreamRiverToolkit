@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DreamRiverTools_CommonSDKJsonDes : MonoBehaviour
+public class DreamRiverCommonJsonDes : MonoBehaviour
 {
     #region QQ
 

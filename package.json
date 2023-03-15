@@ -5,9 +5,9 @@
   "unity": "2021.3",
   "samples": [
     {
-      "displayName": "Runtime",
+      "displayName": "Toolkit",
       "description": "",
-      "path": "Runtime"
+      "path": "Toolkit"
     }
   ],
   "description": "Create new Resources and DreamRiverData and assign values to them"
