@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class DreamRiverTools_GlintingUI : MonoBehaviour
 {
-    [Header("是否自动开启闪耀")] public bool autoGlinting;
+    [Header("是否自动开启闪耀")] public bool autoStart;
     [Header("闪耀的颜色")] public Color glintingColor = new(1, 0, 0, 1);
     [Header("闪动频率")] public float frequency = 0.7f;
 
@@ -21,7 +21,7 @@ public class DreamRiverTools_GlintingUI : MonoBehaviour
 
     private void Start()
     {
-        if (autoGlinting)
+        if (autoStart)
             StartGlinting();
 
         _imageChilds = GetComponentsInChildren<Image>();

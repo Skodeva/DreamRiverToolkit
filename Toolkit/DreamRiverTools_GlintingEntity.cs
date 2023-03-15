@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class DreamRiverTools_GlintingEntity : MonoBehaviour
 {
+    [Header("是否启动时自动开始闪烁")] [SerializeField]
+    private bool autoStart;
+
     /// <summary>
     /// 闪烁颜色
     /// </summary>
@@ -27,9 +30,6 @@ public class DreamRiverTools_GlintingEntity : MonoBehaviour
     /// 闪烁频率，取值范围[0.2,30.0]。
     /// </summary>
     [Header("闪烁频率")] [Range(0.2f, 30.0f)] public float rate = 1;
-
-    [Header("是否启动时自动开始闪烁")] [SerializeField]
-    private bool autoStart;
 
     private float _h, _s, _v; // 色调，饱和度，亮度
     private float _deltaBrightness; // 最低最高亮度差
