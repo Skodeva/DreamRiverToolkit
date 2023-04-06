@@ -35,7 +35,19 @@ Hierarchy右键：DreamRiver / 切换Doozy的TMP字体
 
 # 二、优化该插件大小的方法
 
+## 1、优化Resources
+
 若未使用如下内容，删掉Resources即可。
 
 - 默认字体不是 Resources 下的 MainFont
 - Doozy或者其他TMP未使用 Resources 下的 MainFont SDF
+
+
+
+## 2、优化Runtime
+
+若你在WebGL使用，可以删除如下内容：
+
+- Plugins/Database
+- Plugins/LitJson：看你需要，有没有用到
+- Runtime/DreamRiverToolCore
