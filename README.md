@@ -20,3 +20,12 @@ internal void AssignDefaultFontIfNecessary()
 ```
 
 3、若你已经创建了工程，还需删掉工程Library\PackageCache\com.unity.ugui@1.0.0，重新打开工程。
+
+
+
+# 二、优化该插件大小的方法
+
+若未使用如下内容，删掉Resources即可。
+
+- 默认字体不是 Resources 下的 MainFont
+- Doozy或者其他TMP未使用 Resources 下的 MainFont SDF
