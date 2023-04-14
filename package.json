@@ -1,7 +1,7 @@
 {
   "name": "com.dreamriver.dreamrivertoolkit",
   "displayName": "DreamRiverToolkit",
-  "version": "2023.4.15",
+  "version": "0.1.0",
   "unity": "2021.3",
   "description": "Create new Resources and DreamRiverData and assign values to them"
 }
