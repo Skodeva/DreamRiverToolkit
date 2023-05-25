@@ -1,5 +1,7 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using UnityEngine;
 
 namespace SKODE
@@ -8,6 +10,7 @@ namespace SKODE
     {
     }
 
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(DreamRiverReadOnly))]
     public class ReadOnlyDrawer : PropertyDrawer
     {
@@ -23,5 +26,5 @@ namespace SKODE
             GUI.enabled = true;
         }
     }
-}
 #endif
+}
