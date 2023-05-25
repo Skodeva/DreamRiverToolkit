@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace SKODE
 {
-    public class DreamRiverReadOnly : PropertyAttribute
+    public class DreamRiverReadOnly01 : PropertyAttribute
     {
     }
 
 #if UNITY_EDITOR
-    [CustomPropertyDrawer(typeof(DreamRiverReadOnly))]
+    [CustomPropertyDrawer(typeof(DreamRiverReadOnly01))]
     public class ReadOnlyDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
