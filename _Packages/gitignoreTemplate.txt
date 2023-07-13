@@ -64,7 +64,6 @@ ExportedObj/
 *.pidb.meta
 *.pdb.meta
 *.mdb.meta
-Assets/StreamingAssets/*.*
 *.apk
 
 
