@@ -1,5 +1,5 @@
 {
-    "name": "DreamRiverToolkitEditorAsmdef",
+    "name": "dreamriver.DreamRiverToolkitEditor",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [
