@@ -20,8 +20,6 @@ UserSettings/*
 UserSettings/Layouts/*
 UserSettings/Layouts/default-2021.dwlt
 
-ProjectSettings/ProjectVersion.txt
-
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
