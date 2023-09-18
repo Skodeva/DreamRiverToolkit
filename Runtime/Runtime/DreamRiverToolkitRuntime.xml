@@ -1,0 +1,990 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DreamRiverToolkitRuntime</name>
+    </assembly>
+    <members>
+        <member name="T:SKODE.DreamRiverARFoundation.ImageTarData">
+            <summary>
+            焦距
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SKODE.DreamRiverARFoundation.LocationState.NeverFind">
+            <summary>
+            从未识别到
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverARFoundation.LocationState.LocationFind">
+            <summary>
+            定位确定
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverARFoundation.LocationState.LocationLost">
+            <summary>
+            定位丢失
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverARFoundation.VisableState.NeverFind">
+            <summary>
+            从未识别到
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverARFoundation.VisableState.InVisable">
+            <summary>
+            在视野范围内
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverARFoundation.VisableState.OutVisable">
+            <summary>
+            在视野范围外
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverAudioManager.AllVolumeAction">
+            <summary>
+            当前声音设置,false为静音
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverAudioManager.CurrAllVolumeData">
+            <summary>
+            当前声音设置,false为静音
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverAudioManager.PlayAudioData(SKODE.DrAudioData)">
+            <summary>
+            播放音频，根据逻辑，自动顶替相同类型的音频
+            输入不带AudioSource的参数，返回实例化AudioSource的参数
+            建议：将音频的名字专门用一个脚本记载，方便录入
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverAudioManager.StopAudioByType(SKODE.DrAudioType)">
+            <summary>
+            停止播放某类型音乐
+            </summary>
+            <param name="drAudioType"></param>
+        </member>
+        <member name="M:SKODE.DreamRiverAudioManager.SetVolumeActive(SKODE.VoiceType,System.Boolean)">
+            <summary>
+            控制声音开关
+            </summary>
+            <param name="voiceType">声音类型</param>
+            <param name="value">true打开</param>
+        </member>
+        <member name="M:SKODE.DreamRiverAudioManager.GetAudioData(System.String)">
+            <summary>
+            获得AudioData（输入音频路径）
+            若没有，则为null
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverAudioManager.GetCanUseAudioData(SKODE.DrAudioData)">
+            <summary>
+            判断是否存在可用的 AudioSource 并返回
+            若有，则把旧 DrAudioData 中的 AudioSource 赋值到新数据、并销毁旧数据的相关数据、自身事件，现在使用新数据
+            若没有，则返回玩家的原初始化数据，另行新建 AudioSource
+            </summary>
+        </member>
+        <member name="F:SKODE.DrAudioData.AudioPath">
+            <summary>
+            Resource中的路径+名字，不带后缀，不用加Resource前缀
+            </summary>
+        </member>
+        <member name="F:SKODE.DrAudioData.AudioClip">
+            <summary>
+            要播放的AudioClip，AudioPath和该选项赋值一个即可。
+            </summary>
+        </member>
+        <member name="F:SKODE.DrAudioData.DrAudioType">
+            <summary>
+            音频类型
+            </summary>
+        </member>
+        <member name="F:SKODE.DrAudioData.DefaultLoop">
+            <summary>
+            该音频初始化时，是否需要循环播放
+            </summary>
+        </member>
+        <member name="F:SKODE.DrAudioData.AudioSource">
+            <summary>
+            该参数不需填写，在播放时由系统自动生成
+            </summary>
+        </member>
+        <member name="F:SKODE.VoiceType.Background">
+            <summary>
+            背景音乐，负责 DrAudioType 的 Background
+            </summary>
+        </member>
+        <member name="F:SKODE.VoiceType.Other">
+            <summary>
+            除 DrAudioType.Background 外其他所有类型的音乐
+            </summary>
+        </member>
+        <member name="T:SKODE.DrAudioType">
+            <summary>
+            音乐类型
+            </summary>
+        </member>
+        <member name="F:SKODE.DrAudioType.Background">
+            <summary>
+            背景音乐
+            </summary>
+        </member>
+        <member name="F:SKODE.DrAudioType.Sample">
+            <summary>
+            单音频：下一音乐会顶替该音乐
+            </summary>
+        </member>
+        <member name="F:SKODE.DrAudioType.SampleRepeat">
+            <summary>
+            单音频：相同的音频不会顶替，会重复播放
+            </summary>
+        </member>
+        <member name="F:SKODE.DrAudioType.Loop">
+            <summary>
+            循环音频
+            </summary>
+        </member>
+        <member name="M:SKODE.BaseDreamRiver.ResetState">
+            <summary>
+            恢复初始状态的方法
+            </summary>
+        </member>
+        <member name="M:SKODE.BaseDreamRiver.ResetAllChildState">
+            <summary>
+            恢复自己及所有子物体的初始状态
+            </summary>
+        </member>
+        <member name="T:SKODE.IEntityStrategy">
+            <summary>
+            实体策略接口
+            使用举例: 在实体中定义N个继承了该接口的策略类
+            在合适时机切换逻辑: 实体.SetInteractionStrategy(new 继承了IInteractionStrategy的类);
+            在需要时执行逻辑: 实体.ExecuteGrab();
+            </summary>
+        </member>
+        <member name="M:SKODE.IEntityStrategy.OnUpdate(SKODE.BaseEntity)">
+            <summary>
+            每帧调用
+            </summary>
+        </member>
+        <member name="M:SKODE.IEntityStrategy.OnUse(SKODE.BaseEntity)">
+            <summary>
+            执行使用物体的交互策略。
+            例如:在冒险游戏中，玩家可能需要使用物体来解锁某些场景或与其他物体互动。
+            </summary>
+        </member>
+        <member name="M:SKODE.IEntityStrategy.OnInspect(SKODE.BaseEntity)">
+            <summary>
+            执行检查物体的交互策略。
+            用户想要查看某个物体的详细信息或者从更近的视角查看物体时，他们可能会使用类似的“检查”功能。例如：
+            例如:当在一个RPG游戏中，玩家可能想查看装备的属性或故事背景。
+            在一个解密游戏中，玩家可能想从各个角度仔细检查一个物体以寻找线索。
+            在某些模拟器或工具中，用户可能想放大并旋转一个3D模型以从各个角度观察。
+            </summary>
+        </member>
+        <member name="M:SKODE.BaseEntity.SetInteractionStrategy(SKODE.IEntityStrategy)">
+            <summary>
+            设置该物体此时的交互策略
+            使用举例: 在实体中定义N个继承了IInteractionStrategy的逻辑类
+            在合适时机切换逻辑: 实体.SetInteractionStrategy(new 继承了IInteractionStrategy的类);
+            在需要时执行逻辑: 实体.ExecuteGrab();
+            </summary>
+            <param name="strategy"></param>
+        </member>
+        <member name="M:SKODE.BaseEntity.ExecuteGrab">
+            <summary>
+            执行抓取物体的交互策略。
+            </summary>
+        </member>
+        <member name="M:SKODE.BaseEntity.ExecuteDrop">
+            <summary>
+            执行放下物体的交互策略。
+            </summary>
+        </member>
+        <member name="M:SKODE.BaseEntity.ExecuteUse">
+            <summary>
+            执行使用物体的交互策略。
+            例如:在冒险游戏中，玩家可能需要使用物体来解锁某些场景或与其他物体互动。
+            </summary>
+        </member>
+        <member name="M:SKODE.BaseEntity.ExecuteInspect">
+            <summary>
+            执行检查物体的交互策略。
+            用户想要查看某个物体的详细信息或者从更近的视角查看物体时，他们可能会使用类似的“检查”功能。例如：
+            例如:当在一个RPG游戏中，玩家可能想查看装备的属性或故事背景。
+            在一个解密游戏中，玩家可能想从各个角度仔细检查一个物体以寻找线索。
+            在某些模拟器或工具中，用户可能想放大并旋转一个3D模型以从各个角度观察。
+            </summary>
+        </member>
+        <member name="M:SKODE.BaseEntity.ExecuteDestroy">
+            <summary>
+            执行销毁物体的交互策略。
+            </summary>
+        </member>
+        <member name="M:SKODE.BaseEntity.InitialEntityData.ResetTransform">
+            <summary>
+            将该Data中记载的Transform恢复其保存的父物体、位置
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverClass.ConvertNameValueArray``1(``0)">
+            <summary>
+            将类的实例,转换为两个数组,一个是字段名,一个是字段值
+            对象要求: 1.公共字段(不能是属性) 2.实例字段(不能是静态)
+            数组内容:若字段未赋值,则不会被添加到数组中
+            </summary>
+            <param name="obj">传入类的实例</param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="P:SKODE.DreamRiverComAndroid.view">
+            <summary>
+             Unity 的主要显示区域
+            </summary>
+        </member>
+        <member name="P:SKODE.DreamRiverComAndroid.graphicsRect">
+            <summary>
+            这个对象用于存储一个矩形的四个边的坐标
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverComAndroid.GetKeyboardHeight">
+            <summary>
+            获取移动平台上键盘的高度
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverComAndroid.GetBrank">
+            <summary>
+            获取手机品牌
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverComAndroid.HasApp(System.String)">
+            <summary>
+            判断是否有该包名的APP（可以在Awake执行）
+            </summary>
+            <param name="appPackage"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SKODE.DreamRiverComAndroid.PhoneBrand">
+            <summary>
+            手机品牌
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverEntity.GetObjCenterVisable(UnityEngine.Camera,UnityEngine.Transform)">
+            <summary>
+            判断物体中心点的可见性
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverFile.LoadFileCoroutine(System.String,System.Action{System.Byte[]})">
+            <summary>
+            读取streamingAssetsPath数据，需写入完整路径，包含后缀名
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverFile.CopyFileCoroutine(System.String,System.String,System.Action{System.String})">
+            <summary>
+            将文件从源路径复制到目标路径
+            </summary>
+            <param name="sourceFilePathWithSuffix">完整路径带后缀</param>
+            <param name="destinationPathWithSuffix">完整路径带后缀</param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:SKODE.DreamRiverInternet.GetNetWoker">
+            <summary>
+            读取网络状态
+            -1 无网络 0 wifi 1 移动网络
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverInternet.PingNetAddress">
+            <summary>
+            有时开启了vpn，unity返回的值不准确，还需实际ping一下网址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverMaterial.SetRenderingMode(UnityEngine.Material,SKODE.DreamRiverMaterial.RenderingMode)">
+            <summary>
+            设置材质球的渲染模式
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverMath.JudgeIsHorizontal(UnityEngine.Quaternion)">
+            <summary>
+            判断该平面是水平面还是竖直面
+            </summary>
+            <returns>true，为水平面</returns>
+        </member>
+        <member name="M:SKODE.DreamRiverMath.SearchMostVect3ByX(UnityEngine.Vector3[],System.Nullable{System.Int32})">
+            <summary>
+            求数组中出现次数最多的数(Vectcor中每一位自动保留X位小数)
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverMath.SearchMostQuaternionByX(UnityEngine.Quaternion[],System.Nullable{System.Int32})">
+            <summary>
+            求数组中出现次数最多的数
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverMath.SearchMostFloat(System.Single[])">
+            <summary>
+            求数组中出现次数最多的数
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverNative.GetUseMemory">
+            <summary>
+            获取当前应用占了多少内存
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverNative.ShowToastMessage(System.String)">
+            <summary>
+            弹出信息提示
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverObject.Skode_GetTObjs``1">
+            <summary>
+            获取场景中带有T组件的所有物体
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverParticleEffect.Play">
+            <summary>
+            正向播放
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverParticleEffect.PlayReverse(System.Action)">
+            <summary>
+            反向播放
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverParticleEffect.ProhibitAutoPlay">
+            <summary>
+            禁止一开始就播放
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverTime.CreateForwardTimer(System.Single,System.Action{System.Single})">
+            <summary>
+            创建一个正计时
+            </summary>
+            <param name="duration">正计时时间(从0开始)</param>
+            <param name="onUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverTime.CreateCountdown(System.Single,System.Action{System.Single})">
+            <summary>
+            创建一个倒计时
+            </summary>
+            <param name="duration">倒计时时间(从duration到0)</param>
+            <param name="onUpdate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverTime.SetMarkerTime(System.DateTime)">
+            <summary>
+            标记输入的时间(默认现在)
+            </summary>
+            <param name="dateTime"></param>
+            <returns>当前时间的index</returns>
+        </member>
+        <member name="M:SKODE.DreamRiverTime.CompareMarkerTime(System.Int32,System.Single,System.DateTime)">
+            <summary>
+            比较输入的时间(默认现在)是否比上次设置的时间(SetMarkerTime)大于等于intervalValue
+            若index不存在,则返回true (-1默认不存在)
+            </summary>
+            <param name="index">SetMarkerTime返回的index</param>
+            <param name="intervalValue"></param>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore._isQueried">
+            <summary>
+            是否已缓存查询到的结果
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore._queriedResult">
+            <summary>
+            查询到的授权结果
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore._isInquire">
+            <summary>
+            当前是否正在查询数据库
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore._searchCallBack">
+            <summary>
+            查询完成的回调
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverToolCore.Awake">
+            <summary>
+            在线版：会检查License，判断能否继续使用
+            离线版：所有离线版都能使用所有功能（离线版也要配置好License，保证用户联网后，能正确判断可使用时长）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverToolCore.PingNetAddress">
+            <summary>
+            有时开启了vpn，unity返回的值不准确，还需实际ping一下网址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore.LicenseTrial.license">
+            <summary>
+            授权的包名
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore.LicenseTrial.platform">
+            <summary>
+            授权的平台
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore.LicenseTrial.startTime">
+            <summary>
+            授权的开始日期
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore.LicenseTrial.endTime">
+            <summary>
+            授权的截止日期
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore.LicenseTrial.gameName">
+            <summary>
+            游戏名字(可选)
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore.LicenseTrial.projectName">
+            <summary>
+            工程名字（可选）
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore.LicenseTrial.custom_WeChat">
+            <summary>
+            客户微信昵称（可选）
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverToolCore.LicenseTrial.custom_TaoBao">
+            <summary>
+            客户淘宝昵称（可选）
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverToolkitMethod.ReadClassNames(System.String)">
+            <summary>
+            读取指定文件中的类别名称，将它们存储到一个字符串列表中，并返回该列表
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendCamera.Capture(UnityEngine.Camera,UnityEngine.Texture2D@,System.Nullable{UnityEngine.Rect},System.String)">
+            <summary>
+            截取相机画面
+            </summary>
+            <param name="cam"></param>
+            <param name="value"></param>
+            <param name="mRect">截屏的区域，左下角为(0,0)，默认全屏。
+            例：Capture(new Rect(100, 150, 1024, 768));
+            从左下角的横坐标100,纵坐标150坐标开始截图，宽度1024，高度768</param>
+            <param name="savePath">截取的图片保存地址，例如：/sdcard/Skode</param>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendCamera.GetEntityInScreenPos(UnityEngine.Camera,UnityEngine.Transform)">
+            <summary>
+            得到当前实体在屏幕上的坐标
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendCamera.GetOverEntity(UnityEngine.Camera)">
+            <summary>
+            获得鼠标下带有collider的3D物体
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendCamera.RayScreenCenterToWorld(UnityEngine.Camera,SKODE.DreamRiverLayerType,System.Int32[])">
+            <summary>
+            摄像机位置正方向向世界发射线
+            即使上方有collider挡住，也能穿透返回最近的collider
+            </summary>
+            <param name="camera">摄像机</param>
+            <param name="layers">要检测或忽略的层，不传入，则为所有层</param>
+            <param name="dreamRiverLayerType">层类型</param>
+            <returns>射线碰撞结果</returns>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendCamera.RayPointToWorld(UnityEngine.Camera,UnityEngine.Vector2,SKODE.DreamRiverLayerType,System.Int32[])">
+            <summary>
+            屏幕一点向世界发射线
+            </summary>
+            <param name="camera"></param>
+            <param name="pointPos">例：input.mousepostion</param>
+            <param name="dreamRiverLayerType">层类型</param>
+            <param name="layers">要检测的层级。当 layerType 为 LayerType.Ignore 时，则忽略该层；当 layerType 为 LayerType.Target 时，则只检测该层。</param>
+            <returns></returns>
+        </member>
+        <member name="F:SKODE.DreamRiverLayerType.Target">
+            <summary>
+            检测指定层
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverLayerType.Ignore">
+            <summary>
+            忽略指定层
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendRectTransform.GetRootCanvasByDreamRiver(UnityEngine.RectTransform)">
+            <summary>
+            查找根节点的Canvas
+            解决了Unity自带API rootCanvas当Canvas关闭时不自动向上查找的问题
+            </summary>
+            <param name="rectTransform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendString.ToDateTime(System.String)">
+            <summary>
+            可将 DateTime.Now.ToString() 转换为 DateTime
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendString.ToVector3(System.String)">
+            <summary>
+            将string变为Vector3
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendString.GetInEnumSort(System.String,System.Type)">
+            <summary>
+            输入字符串和一个枚举，查找这个字符串在这个枚举的位置。
+            若结果为null，则表示没找到
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendString.CheckIsValidPassword(System.String)">
+            <summary>
+            检查是否是有效的密码
+            有效密码规则:密码需8-16字符，含数字和字母。
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendString.IsEmailAddressByDreamRiver(System.String)">
+            <summary>
+            检查是否是有效的邮箱格式
+            请注意，这个正则表达式并不是完美的，但它可以捕获大多数常见的电子邮件格式错误
+            </summary>
+            <param name="email"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendString.FindObjectsWithTag(System.String)">
+            <summary>
+            查找所有 tag 物体 
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendString.AddColor(System.String,System.String)">
+            <summary>
+            为字符串添加颜色
+            </summary>
+            <param name="value"></param>
+            <param name="colorValue">例: #FFFFFF </param>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendString.AddAtlas(System.String,System.Int32)">
+            <summary>
+            将字符串变为富文本图集
+            </summary>
+            <param name="atlasName"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendString.AddHyperlink(System.String,System.String)">
+            <summary>
+            给该字符串添加超链接
+            </summary>
+            <param name="value"></param>
+            <param name="linkID">超链接内容.用户点击时会返回该内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendTexture2D.ToHorizontalFlip(UnityEngine.Texture2D,UnityEngine.Texture2D@)">
+            <summary>
+            图片水平翻转
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendTexture2D.ToVerticalFlip(UnityEngine.Texture2D,UnityEngine.Texture2D@)">
+            <summary>
+            图片垂直翻转
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendTransform.FindComponentInParents``1(UnityEngine.Transform)">
+            <summary>
+            向上递归查找指定类型的组件
+            </summary>
+            <typeparam name="T">要查找的组件类型</typeparam>
+            <param name="transform">开始搜索的Transform</param>
+            <returns>返回找到的组件或null</returns>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendTransform.FaceTarget(UnityEngine.Transform,UnityEngine.Transform)">
+            <summary>
+            使得自身竖直朝向tarValue(Y轴向上)
+            </summary>
+            <param name="tarValue">朝向的目标</param>
+            <param name="modifyValue">要修改角度的物体</param>
+            <returns>modifyValue应赋予的角度值</returns>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendTransform.GetOverUI(UnityEngine.Transform)">
+            <summary>
+            获得当前鼠标悬浮处UI
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendTransform.GetAllOverUI(UnityEngine.Transform)">
+            <summary>
+            获得当前鼠标悬浮处所有UI
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverExtendTransform.GetClickUI(UnityEngine.Transform)">
+            <summary>
+            获得当前鼠标点击的UI
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverEmailManager._host">
+            <summary>
+            邮箱服务器主机
+            例如QQ:smtp.qq.com
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverEmailManager.Port">
+            <summary>
+            邮箱服务器主机端口
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverEmailManager.GetRandomVerificationCode(System.Int32)">
+            <summary>
+            获得随机验证码(默认6位,可设置4位)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverEmailManager.SendEmail(SKODE.DreamRiverEmailManager.SenderInfo,SKODE.DreamRiverEmailManager.EmailContent,System.Action{System.Boolean,System.Exception})">
+            <summary>
+            发送邮件(内容可以是Html格式)
+            </summary>
+            <param name="account">账号信息</param>
+            <param name="emailContent">邮件内容</param>
+            <param name="callback">回调:是否成功,返回的字符串</param>
+        </member>
+        <member name="M:SKODE.DreamRiverEmailManager.IsReadyTimeToSendEmail(System.Int32,System.Int32)">
+            <summary>
+            时间上是否过去等待期,可以发送邮件
+            发送一次后,默认等待30秒才能再次发送
+            </summary>
+            <param name="eventID"></param>
+            <param name="waitTimeInSeconds"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SKODE.DreamRiverEmailManager.SenderInfo">
+            <summary>
+            用该邮箱去发送邮件
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverEmailManager.SenderInfo.DreamRiverEmailType">
+            <summary>
+            发送邮件的邮箱
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverEmailManager.SenderInfo.Email">
+            <summary>
+            完整邮箱地址
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverEmailManager.SenderInfo.AuthorizationCode">
+            <summary>
+            授权码
+            </summary>
+        </member>
+        <member name="T:SKODE.DreamRiverEmailManager.EmailContent">
+            <summary>
+            邮件的内容
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverEmailManager.EmailContent.subject">
+            <summary>
+            主题
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverEmailManager.EmailContent.emailBody">
+            <summary>
+            主体
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverEmailManager.EmailContent.attachment">
+            <summary>
+            附件
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverEmailManager.EmailContent.recievers">
+            <summary>
+            接收邮箱
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverEmailManager.Email.SmtpClient">
+            <summary>
+            Smtp Client
+            Smtp : 简单邮件传输协议（Simple Mail Transfer Protocol）
+            </summary>
+        </member>
+        <member name="F:SKODE.ES3_LandTokenManager.EncryptionPassword">
+            <summary>
+            加密密码
+            </summary>
+        </member>
+        <member name="F:SKODE.ES3_LandTokenManager.TokenTimeout">
+            <summary>
+            token 的过期时间（以天为单位）
+            </summary>
+        </member>
+        <member name="M:SKODE.ES3_LandTokenManager.GenerateAndSaveToken(System.String)">
+            <summary>
+            生成并保存 token, 返回未加密的 token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.ES3_LandTokenManager.LoadInTimeToken">
+            <summary>
+            获取没有过期的 token
+            若没有,则返回null
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SKODE.ES3_LandTokenManager.LandTokenInfo.ID">
+            <summary>
+            用户的唯一标识符
+            </summary>
+        </member>
+        <member name="F:SKODE.ES3_LandTokenManager.LandTokenInfo.LandToken">
+            <summary>
+            加密后的Token
+            </summary>
+        </member>
+        <member name="F:SKODE.ES3_LandTokenManager.LandTokenInfo.GeneratedTime">
+            <summary>
+            生成的时间
+            例如:08/29/2023 16:30:59
+            </summary>
+        </member>
+        <member name="T:SKODE.DreamRiverMySqlManager">
+            <summary>
+            表中应有自增主键,名称ID,int类型
+            用于更新/插入后回调获得服务器该行值
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverMySqlManager.CreateTable(System.String,System.String,System.String,System.String[],System.String[],System.Action{SKODE.DreamRiverSqlResponse})">
+            <summary>  
+            创建表  
+            </summary>
+            <param name="url"></param>
+            <param name="key"></param>
+            <param name="tableName">表名</param>  
+            <param name="colName">属性列</param>  
+            <param name="colType">属性类型</param>
+            <param name="callback">创建完成的回调</param>
+            <returns></returns>  
+        </member>
+        <member name="M:SKODE.DreamRiverMySqlManager.CreateTableAutoID(System.String,System.String,System.String,System.String[],System.String[],System.Action{SKODE.DreamRiverSqlResponse})">
+            <summary>  
+            创建具有id自增的表  
+            </summary>
+            <param name="url"></param>
+            <param name="tableName">表名</param>  
+            <param name="col">属性列</param>  
+            <param name="colType">属性列类型</param>
+            <param name="callback"></param>
+            <returns></returns>  
+        </member>
+        <member name="M:SKODE.DreamRiverMySqlManager.ExitTablePara(System.String,System.String,System.String,System.Action{SKODE.DreamRiverSqlResponse,System.Boolean})">
+            <summary>
+            通过SQL语句查询数据库是否存在某表
+            </summary>
+            <param name="url"></param>
+            <param name="dataTableName">表名 (参数化) </param>
+            <param name="callback">bool,是否存在表</param>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverMySqlManager.GetTableRows``1(System.String,System.String,System.String,System.String,System.String,System.String,System.Action{SKODE.DreamRiverSqlResponse,System.Collections.Generic.List{``0}})">
+            <summary>
+            查询表中满足条件的所有行
+            使用方法:var users = GetTableRows尖括号User尖括号("UsersTable", "Name", "=", "JohnDoe");
+            User为包含该行所有字段的类(不可是属性)
+            </summary>
+            <param name="url"></param>
+            <param name="tableName">要查询的表名。</param>
+            <param name="whereColName">要查询的列名。</param>
+            <param name="operation">条件符（例如 "=", ">" 等）。</param>
+            <param name="value">该列期望的行值。 (参数化) </param>
+            <param name="callback">执行完的回调</param>
+        </member>
+        <member name="M:SKODE.DreamRiverMySqlManager.GetColumnValue``1(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Action{SKODE.DreamRiverSqlResponse,``0})">
+            <summary>
+            查询表中某列的某行,该行指定列的值
+            使用方法: var userName = GetColumnValue尖括号string尖括号("UsersTable", "UserName", "UserID", "=", "12345");
+            这将查询UsersTable表中UserID为12345的UserName列的值。
+            </summary>
+            <typeparam name="T">返回值的类型。例如，如果您正在查询的列是一个字符串，则T应该是string。</typeparam>
+            <param name="url"></param>
+            <param name="tableName">表名</param>
+            <param name="resultColName">要查询的列名</param>
+            <param name="conditionColName">条件列名</param>
+            <param name="operation">条件符（例如 "=", ">" 等）</param>
+            <param name="conditionValue">条件列值 (参数化) </param>
+            <param name="callback">是否查询到;查询到的值</param>
+            <returns>查询到的值。如果查询失败或没有结果，返回默认的T值。</returns>
+        </member>
+        <member name="M:SKODE.DreamRiverMySqlManager.GetValueFromTable(System.String,System.String,System.String,System.Int32,System.String,System.String,System.String,System.Action{SKODE.DreamRiverSqlResponse,System.String})">
+            <summary>
+            查询表中指定单元数据
+            </summary>
+            <param name="url"></param>
+            <param name="key"></param>
+            <param name="tableName">表名称</param>
+            <param name="index">列索引号</param>
+            <param name="columnName">所要查询数据的列名称或以*代替</param>
+            <param name="conditionVar">依据条件列名称</param>>
+            <param name="conditionValue">依据条件列的值 (参数化) </param>
+            <param name="callback">若没有,则返回空字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:SKODE.DreamRiverMySqlManager.InsertIntoTable``1(System.String,System.String,System.String,``0,System.Action{SKODE.DreamRiverSqlResponse,``0})">
+            <summary>  
+            向指定的表中插入一行(数据可用类表示)
+            若某列为自增,则不需赋值.null的字段自动不插入
+            使用例子:public class UserRow { public int user_id; public string user_name; public string user_password;}
+            UserRow row = new UserRow(){ user_name = "myName", user_password = "myPassword" };
+            DreamRiverMySqlManager manager = new DreamRiverMySqlManager(SecretData.IP, SecretData.UserName,SecretData.Password, SecretData.Database);
+            manager.InsertIntoTable("users", row);
+            </summary>
+            <param name="url"></param>
+            <param name="key"></param>
+            <param name="tableName">表名</param>  
+            <param name="obj">类的实例 (值参数化) </param>
+            <param name="callback">服务器响应/插入该行后服务器返回的的该行完整值</param>
+            <returns></returns>  
+        </member>
+        <member name="M:SKODE.DreamRiverMySqlManager.UpdateTable``1(System.String,System.String,System.String,System.String,System.String,System.String[],System.String[],System.Action{SKODE.DreamRiverSqlResponse,``0})">
+            <summary>  
+            更新表数据
+            使用例子:更新名为 "Alice" 的用户的年龄为 30
+            string table = "users";
+            string[] columnsToUpdate = { "age" };
+            string[] newValues = { "30" };
+            string conditionColumn = "name";
+            string conditionValue = "Alice";
+            DataSet result = UpdateInto(table, columnsToUpdate, newValues, conditionColumn, conditionValue);
+            此代码将生成并执行以下SQL查询：
+            UPDATE users SET age = '30' WHERE name = 'Alice'
+            </summary>
+            <param name="url"></param>
+            <param name="tableName">表名</param>
+            <param name="conditionsColumnName">条件列名</param>  
+            <param name="conditionsRowValue">条件列的行值 (参数化) </param>  
+            <param name="refreshCols">更新列</param>  
+            <param name="refreshValues">更新的值 (参数化) </param>
+            <param name="callback">服务器响应/更新该行后服务器返回的该行完整值</param>
+            <returns></returns>  
+        </member>
+        <member name="M:SKODE.DreamRiverMySqlManager.DeleteTable(System.String,System.String,System.String,System.Action{SKODE.DreamRiverSqlResponse,System.Boolean})">
+            <summary>
+            按照表名删除数据库中的表
+            </summary>
+            <param name="url"></param>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SKODE.DreamRiverSqlResponse">
+            <summary>
+            通讯及操作是否成功
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverSqlResponse.isSuccessful">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverSqlResponse.errorMessage">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverSqlResponse.Message">
+            <summary>
+            正确信息
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverTools.TestExecuteTime(System.Action)">
+            <summary>
+            测试该代码的执行时间
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="F:SKODE.DreamRiverTools_GlintingEntity.color">
+            <summary>
+            闪烁颜色
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverTools_GlintingEntity.minBrightness">
+            <summary>
+            最低发光亮度，取值范围[0,1]，需小于最高发光亮度。
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverTools_GlintingEntity.maxBrightness">
+            <summary>
+            最高发光亮度，取值范围[0,1]，需大于最低发光亮度。
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverTools_GlintingEntity.rate">
+            <summary>
+            闪烁频率，取值范围[0.2,30.0]。
+            </summary>
+        </member>
+        <member name="F:SKODE.DreamRiverTools_GlintingEntity._glintingTime">
+            <summary>
+            闪烁时长
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverTools_GlintingEntity.OnValidate">
+            <summary>
+            校验数据，并保证运行时的修改能够得到应用。
+            该方法只在编辑器模式中生效！！！
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverTools_GlintingEntity.StartGlinting(System.Nullable{System.Single})">
+            <summary>
+            开始闪烁
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverTools_GlintingEntity.StopGlinting">
+            <summary>
+            停止闪烁。
+            </summary>
+        </member>
+        <member name="M:SKODE.DreamRiverTools_GlintingEntity.IEGlinting">
+            <summary>
+            控制自发光强度。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SKODE.DreamRiverTools_GlintingUI._glintingTime">
+            <summary>
+            闪烁时长
+            </summary>
+        </member>
+        <member name="T:SKODE.DreamRiverTools_ViewConFirst">
+            <summary>
+            绑定在摄像机上
+            鼠标左键：摄像机绕着被观察物体转动；
+            鼠标中键：缩放视野距离
+            </summary>
+        </member>
+        <member name="M:SKODE.UnityMainThreadDispatcher.Enqueue``1(System.Func{``0},System.Action{``0})">
+            <summary>
+            在子线程中执行的动作(子线程有返回值),子线程返回值会自动传入回调
+            </summary>
+            <param name="threadFunc">子线程事件</param>
+            <param name="callback">子线程执行完的回调</param>
+        </member>
+        <member name="M:SKODE.UnityMainThreadDispatcher.Enqueue(System.Action,System.Action)">
+            <summary>
+            在子线程中执行的动作(子线程无返回值)
+            </summary>
+            <param name="threadAction">子线程事件</param>
+            <param name="callback">子线程执行完的回调</param>
+        </member>
+        <member name="M:SKODE.UnityMainThreadDispatcher.RunOnMainThreadAsync(System.Action)">
+            <summary>
+            可以在主线程上运行指定操作的异步方法
+            如果您的代码在子线程中运行，但需要对 Unity 中的游戏对象进行修改，您可以使用 RunOnMainThreadAsync 将操作推到主线程上运行。
+            </summary>
+            <param name="action"></param>
+        </member>
+    </members>
+</doc>
