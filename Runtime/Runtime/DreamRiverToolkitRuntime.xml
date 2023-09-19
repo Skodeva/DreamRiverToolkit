@@ -4,6 +4,11 @@
         <name>DreamRiverToolkitRuntime</name>
     </assembly>
     <members>
+        <member name="T:SKODE.DreamRiverReadOnly">
+            <summary>
+            用于标记只读属性
+            </summary>
+        </member>
         <member name="T:SKODE.DreamRiverARFoundation.ImageTarData">
             <summary>
             焦距
@@ -161,9 +166,19 @@
             在需要时执行逻辑: 实体.ExecuteGrab();
             </summary>
         </member>
+        <member name="M:SKODE.IEntityStrategy.OnEnter(SKODE.BaseEntity)">
+            <summary>
+            进入该策略时调用
+            </summary>
+        </member>
         <member name="M:SKODE.IEntityStrategy.OnUpdate(SKODE.BaseEntity)">
             <summary>
             每帧调用
+            </summary>
+        </member>
+        <member name="M:SKODE.IEntityStrategy.OnLeave(SKODE.BaseEntity)">
+            <summary>
+            离开该策略时调用
             </summary>
         </member>
         <member name="M:SKODE.IEntityStrategy.OnUse(SKODE.BaseEntity)">
@@ -213,11 +228,6 @@
             例如:当在一个RPG游戏中，玩家可能想查看装备的属性或故事背景。
             在一个解密游戏中，玩家可能想从各个角度仔细检查一个物体以寻找线索。
             在某些模拟器或工具中，用户可能想放大并旋转一个3D模型以从各个角度观察。
-            </summary>
-        </member>
-        <member name="M:SKODE.BaseEntity.ExecuteDestroy">
-            <summary>
-            执行销毁物体的交互策略。
             </summary>
         </member>
         <member name="M:SKODE.BaseEntity.InitialEntityData.ResetTransform">
